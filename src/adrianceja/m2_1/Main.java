@@ -6,6 +6,9 @@
 
 package adrianceja.m2_1;
 
+import java.net.SocketPermission;
+import java.util.Scanner;
+
 public class Main {
 
     enum tipoToken {
@@ -196,21 +199,44 @@ public class Main {
         return tipoAceptado(e);
     }
 
+    // Para testear todos los tipos de entradas
+    /*
+     * public static void main(String[] args) {
+     * String[] tests = {
+     * // if o IDs
+     * "if", "i", "if1", "hola123", "ABC", "a9",
+     * // NUM / FLOAT con signos y puntos
+     * "123", "+0", "-007",
+     * "12.34", "1.0", "3.14159", "5.", "-5.", "+5.",
+     * ".5", "+.5", "-.5",
+     * "1e10", "+2.5e10", "4E-3", "-7E+8", "5.e2", "+.5E-3",
+     * // invalidos
+     * ".", "+.", "-.", "e10", "12e", "12e+", "12e-",
+     * "IF", "If", "1.2.3", "1e1e1"
+     * };
+     * for (String s : tests) {
+     * System.out.printf("%-8s -> %s%n", s, clasificacion(s));
+     * }
+     * }
+     */
+
     public static void main(String[] args) {
-        String[] tests = {
-                // if o IDs
-                "if", "i", "if1", "hola123", "ABC", "a9",
-                // NUM / FLOAT con signos y puntos
-                "123", "+0", "-007",
-                "12.34", "1.0", "3.14159", "5.", "-5.", "+5.",
-                ".5", "+.5", "-.5",
-                "1e10", "+2.5e10", "4E-3", "-7E+8", "5.e2", "+.5E-3",
-                // invalidos
-                ".", "+.", "-.", "e10", "12e", "12e+", "12e-",
-                "IF", "If", "1.2.3", "1e1e1"
-        };
-        for (String s : tests) {
-            System.out.printf("%-8s -> %s%n", s, clasificacion(s));
+        // Escribe el argumento y lo clasifica. Ejemplo: if, 12e3, +.5, etc
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Escribe lexemas separados por espacios. EOF para salir");
+
+        while (true) {
+            System.out.print("> ");
+            if (!sc.hasNextLine())
+                break; // EOF Ctrl + Z + Enter (Windows) / Ctrl + D (Mac/Linux)
+            String line = sc.nextLine().trim();
+            if (line.isEmpty())
+                continue;
+
+            for (String lex : line.split("\\s+")) {
+                System.out.printf("%-16s -> %s%n", lex, clasificacion(lex));
+            }
         }
+        sc.close();
     }
 }
