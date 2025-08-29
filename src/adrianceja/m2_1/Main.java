@@ -6,6 +6,7 @@ public class Main {
         IF, ID, NUM, FLOAT, INVALID
     }
 
+    // Estados del automata finito determinista
     enum Estado {
         INICIO,
         SIGNO, // signo "+-" al inicio
@@ -23,6 +24,7 @@ public class Main {
         DEAD // algo invalido
     }
 
+    // Mapeo de los estados aceptados
     static tipoToken tipoAceptado(Estado e) {
         switch (e) {
             case IF_:
@@ -59,9 +61,9 @@ public class Main {
                     } else if (c == '.') {
                         e = Estado.DOT_INICIO;
                     } else if (esLetra) {
-                        e = (c == 'i') ? Estado.I : Estado.ID;
+                        e = (c == 'i') ? Estado.I : Estado.ID; // puede ser if o id
                     } else if (esDigito) {
-                        e = Estado.INT;
+                        e = Estado.INT; // entero por ahora
                     } else {
                         e = Estado.DEAD;
                     }
