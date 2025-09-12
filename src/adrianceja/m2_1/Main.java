@@ -6,7 +6,6 @@
 
 package adrianceja.m2_1;
 
-import java.net.SocketPermission;
 import java.util.Scanner;
 
 public class Main {
